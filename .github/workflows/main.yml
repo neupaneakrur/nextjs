@@ -33,14 +33,3 @@ jobs:
           args: '-r' # Copy files recursively
 
 
-      - name: SSH into EC2 and run command
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-          script: |
-            sudo pm2 stop next &&
-            sudo cp -rf /home/ubuntu/app/next/./* /var/www/next &&
-            sudo rm -rf /home/ubuntu/app/next/* &&
-            sudo pm2 start next
