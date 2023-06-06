@@ -1,0 +1,43 @@
+name: CI/CD Pipeline
+
+on:
+  workflow_dispatch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build application
+        run: npm run build
+
+      - name: Transfer files to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: '.next'
+          target: '/home/ubuntu/app/next'
+
+      #- name: SSH into EC2 and run command
+       # uses: appleboy/ssh-action@master
+        #with:
+          #host: ${{ secrets.EC2_HOST }}
+          #username: ${{ secrets.EC2_USER }}
+          #key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          #script: |
+            #sudo systemctl stop converter.service &&
+            #cp -r /home/ubuntu/app/github/.next/* /var/www/converter &&
+            #sudo systemctl start converter.service
