@@ -28,16 +28,6 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: './out'
-          target: '/home/ubuntu/app/next/'
-
-      #- name: SSH into EC2 and run command
-       # uses: appleboy/ssh-action@master
-        #with:
-          #host: ${{ secrets.EC2_HOST }}
-          #username: ${{ secrets.EC2_USER }}
-          #key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-          #script: |
-            #sudo systemctl stop converter.service &&
-            #cp -r /home/ubuntu/app/github/.next/* /var/www/converter &&
-            #sudo systemctl start converter.service
+          source: './'
+          target: '/home/ubuntu/app/next'
+          args: '-r' # Copy files recursively
