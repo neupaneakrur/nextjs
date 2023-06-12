@@ -26,7 +26,8 @@ jobs:
           host: ${{ secrets.EC2_HOST }}  
           username: ${{ secrets.EC2_USERNAME }}  
           key: ${{ secrets.EC2_SSH_KEY }}  
-          script: /home/ubuntu/app/next/next.sh
-          shell: bash
+          run: |
+            cd /home/ubuntu/app/next
+            bash next.sh
 
         
