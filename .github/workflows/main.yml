@@ -28,7 +28,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}  
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/ubuntu/app/next/
-            npm i
-            pm2 kill
-            pm2 start npm --name "next" -- start
+            cd /home/ubuntu/app/next
+            /home/ubuntu/app/next/ npm i
+            /home/ubuntu/app/next/ pm2 kill
+            /home/ubuntu/app/next/ pm2 start npm --name "next" -- start
