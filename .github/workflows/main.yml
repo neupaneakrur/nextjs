@@ -29,5 +29,5 @@ jobs:
           run: |
             npm ci --legacy-peer-deps;
             npm run build --if-present;
-            pm2 restart example
+            pm2 restart 0
         
