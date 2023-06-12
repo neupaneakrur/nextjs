@@ -29,5 +29,5 @@ jobs:
           script: |
             cd /home/ubuntu/app
             cd next
-            npm run build
-            pm2 restart 0
+            sudo npm run build
+            sudo pm2 restart 0
