@@ -1,35 +1,33 @@
-name: CI/CD Pipeline
+name: Deploy to EC2
 
 on:
-  workflow_dispatch
+  workflow_dispatch:  # Manual trigger
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Transfer code to EC2
+        uses: appleboy/scp-action@v0.3.0
         with:
-          node-version: 18
+          host: ${{ secrets.EC2_HOST }}  
+          username: ${{ secrets.EC2_USERNAME }}  
+          key: ${{ secrets.EC2_PRIVATE_KEY }}  
+          source: .  # Copy all files from the repository root
+          target: /home/ubuntu/app/next/  
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build application
-        run: npm run build
-
-      - name: Transfer files to EC2
-        uses: appleboy/scp-action@master
+      - name: SSH into EC2
+        uses: appleboy/ssh-action@v0.5.0
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: './'
-          target: '/home/ubuntu/app/next'
-          args: '-r' # Copy files recursively
-
-
+          host: ${{ secrets.EC2_HOST }}  
+          username: ${{ secrets.EC2_USERNAME }}  
+          key: ${{ secrets.EC2_PRIVATE_KEY }}  
+          script: |
+            cd /home/ubuntu/app/next/
+            npm ci
+            pm2 kill
+            pm2 start npm --name "next" -- start
