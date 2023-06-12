@@ -30,6 +30,6 @@ jobs:
           script: |
             cd /home/ubuntu/app
             cd next
-            npm i
-            pm2 kill
-            pm2 start npm --name "next" -- start
+            /home/ubuntu/.nvm/versions/node/v18.16.0/bin/npm i
+            /home/ubuntu/.nvm/versions/node/v18.16.0/bin/pm2 kill
+            /home/ubuntu/.nvm/versions/node/v18.16.0/bin/pm2 start npm --name "next" -- start
