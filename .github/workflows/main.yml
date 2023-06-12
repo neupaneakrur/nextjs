@@ -19,13 +19,14 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}  
           source: .  # Copy all files from the repository root
           target: /home/ubuntu/app/next/  
-
+      
       - name: SSH into EC2 and Run Script
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}  
           username: ${{ secrets.EC2_USERNAME }}  
           key: ${{ secrets.EC2_SSH_KEY }}  
-          run: /home/ubuntu/app/next/next.sh
+          script: /home/ubuntu/app/next/next.sh
           shell: bash
+
         
