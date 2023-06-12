@@ -16,7 +16,7 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}  
           username: ${{ secrets.EC2_USERNAME }}  
-          key: ${{ secrets.EC2_PRIVATE_KEY }}  
+          key: ${{ secrets.EC2_SSH_KEY }}  
           source: .  # Copy all files from the repository root
           target: /home/ubuntu/app/next/  
 
