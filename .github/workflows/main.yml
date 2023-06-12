@@ -28,6 +28,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}  
           script: |
             cd /home/ubuntu/app/next/
-            npm ci
-            pm2 kill
-            pm2 start npm --name "next" -- start
+            /usr/local/bin/npm ci
+            /usr/local/bin/pm2 kill
+            /usr/local/bin/pm2 start npm --name "next" -- start
