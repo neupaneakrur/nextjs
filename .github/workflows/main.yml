@@ -26,8 +26,8 @@ jobs:
           host: ${{ secrets.EC2_HOST }}  
           username: ${{ secrets.EC2_USERNAME }}  
           key: ${{ secrets.EC2_SSH_KEY }}  
-          script: |
-            cd /home/ubuntu/app
-            cd next
-            PATH=$PATH:/home/${{secrets.EC2_USERNAME}}/.nvm/versions/node/v18.16.0/bin/pm2
-            pm2 -v
+          run: |
+            npm ci --legacy-peer-deps;
+            npm run build --if-present;
+            pm2 restart example
+        
