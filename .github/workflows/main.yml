@@ -26,7 +26,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}  
           username: ${{ secrets.EC2_USERNAME }}  
           key: ${{ secrets.EC2_SSH_KEY }}  
-          run: |
+          script: |
             cd /home/ubuntu/app
             cd next
             npm ci --legacy-peer-deps;
