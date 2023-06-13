@@ -29,8 +29,8 @@ jobs:
           script: |
             cd /home/ubuntu/app
             cd next
-            npm ci --legacy-peer-deps;
-            npm run build --if-present;
+            npm ci 
+            npm run build
             pm2 restart 0
 
         
