@@ -14,9 +14,10 @@ jobs:
       - name: Transfer code to EC2
         uses: appleboy/scp-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}  
+          host: ${{ secrets.EC2_HOST }}
+          port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.EC2_USERNAME }}  
-          key: ${{ secrets.EC2_SSH_KEY }}  
+          key: ${{ secrets.EC2_SSH_KEY }} 
           source: .  # Copy all files from the repository root
           target: /home/ubuntu/app/next/  
       
